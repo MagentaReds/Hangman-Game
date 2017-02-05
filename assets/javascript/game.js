@@ -135,6 +135,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
       };
 
       myElement = document.getElementById("my-audio-1");
+      myElement.volume = 0.2;
       myElement.play();
     },
 
@@ -160,6 +161,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
         if(letter_pass===this.guessArray[i]) {
           this.display_status("You already guessed the letter: "+letter_pass);
           var myElement = document.getElementById("my-audio-2");
+          myElement.volume = 0.2;
           myElement.play();
           return;
         }
@@ -168,6 +170,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
       this.guessArray.push(letter_pass);
       this.display_status("You guessed the letter: "+letter_pass);
       var myElement = document.getElementById("my-audio-3");
+      myElement.volume = 0.2;
       myElement.play();
       
       if(!this.in_word(letter_pass)) {
