@@ -58,7 +58,10 @@ document.addEventListener("DOMContentLoaded", function(event) {
         tempStr=tempStr+this.guessArray[i]+" ";
       }
       //console.log(tempStr);
-      myDiv.innerHTML = tempStr;
+      if(tempStr==="")
+        myDiv.innerHTML = "None";
+      else
+        myDiv.innerHTML = tempStr;
     },
 
     //Fills in the html of #hidden-word with either _ or the letter of the word, depending on the mask of currentWord array
