@@ -1,5 +1,11 @@
 document.addEventListener("DOMContentLoaded", function(event) { 
 
+  //I got frustrated trying to code this generically without bootstrap.js
+  //so I hard coded the close button on the the one lone alert
+  document.getElementById("close1").onclick = function() {
+    document.getElementById("alert1").style.display = "none";
+  };
+
   var hangman = {
     listWords: ["GEOCITIES", "NINETIES", "CLARISSA", "NICKLEODEON", "MOONSHOES",
       "WORDART", "VANILLA ICE", "GOOSEBUMPS", "AMERICA ONLINE"],
