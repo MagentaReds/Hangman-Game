@@ -4,9 +4,14 @@
 
 ~~Idea is, people can take the hangman game object, then right their own displayer for the webpage they want.~~
 
-I used the April fools bootstrap theme from here http://code.divshot.com/geo-bootstrap/
-It uses a fairly old version of bootstrap circa 2012, but works well enough.
-
 I did that thing I said I was going to do.
 
-As a side note, I could have made hangman.guess_letter() return true/false based on if the game has ended, rather than having it return true/false based on if the character is repeated.  I decided to keep it the way it is now beause cause I figured chaning it wouldn't be that much more helpful.  And I'd have to add logic/another member variable to the hangman object that holds ifLastLetterAlreadyGuessed value while I already had the isOver member variable.
+For the Css/bootstrap, I used the April fools bootstrap theme from here http://code.divshot.com/geo-bootstrap/
+It uses a fairly old version of bootstrap circa 2012, but works well enough.
+
+From the code comments: 
+  //Hangman main object. Defines the game, and mostly runs it.
+  //call hangman.initialize() to set up the first round of the game, then call hangman.guess_letter(letter) to step through the game
+  //hangman.guess_letter() will return true if the game round has ended, false otherwise.
+  //access the memember varibles (.isLoss, .currentWord, .hiddenWord etc.) as needed.
+  //Once the game round ends, call hangman.nextRound() to begin the next round

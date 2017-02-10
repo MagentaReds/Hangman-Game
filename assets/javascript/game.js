@@ -6,29 +6,35 @@ document.addEventListener("DOMContentLoaded", function(event) {
     document.getElementById("alert1").style.display = "none";
   };
 
-  //Hangman main object Defienes the game, and mostly runs it.
+  //Hangman main object. Defines the game, and mostly runs it.
+  //call hangman.initialize() to set up the first round of the game, then call hangman.guess_letter(letter) to step through the game
+  //hangman.guess_letter() will return true if the game round has ended, false otherwise.
+  //access the memember varibles (.isLoss, .currentWord, .hiddenWord etc.) as needed.
+  //Once the game ends, call hangman.nextRound() to start the next round/reset the game upon a loss.
   var hangman = {
     listWords: ["GEOCITIES", "NINETIES", "CLARISSA", "NICKLEODEON", "MOONSHOES",
       "WORDART", "VANILLA ICE", "GOOSEBUMPS", "AMERICA ONLINE"],
     guessArray: [],
-    wins: 0,
+    winStreak: 0,
     guesses: 6,
     currentWord: "",
     maskArray: [],
     isOver: false,
     isLoss: false,
-    displayWord: "",
+    hiddenWord: "",
+    lastGuessIsRepeat: false,
 
     //Sets up the variables, can pass number of wins to set them to that.
     initialize: function(given_wins=0) {
       this.guessArray = [];
-      this.wins = given_wins;
+      this.winStreak = given_wins;
       this.guesses=6;
       this.currentWord = this.listWords[Math.floor(Math.random()*this.listWords.length)];
       this.setMask();
-      this.displayWord=this.getDisplayWord();
+      this.hiddenWord=this.getDisplayWord();
       this.isOver=false;
       this.isLoss=false;
+      this.lastGuessIsRepeat=false;
 
     },
 
@@ -97,29 +103,38 @@ document.addEventListener("DOMContentLoaded", function(event) {
         return 0;
     },
 
+    nextRound: function() {
+      if(this.isOver) {
+        if(this.isLoss)
+          this.initialize(0);
+        else
+          this.initialize(this.winStreak);
+      }
+    },
+
     //main function of hangman, checks to see if game is over, if not, checks to see if the letter is in the word.  If it is not, then the gusses is decremneted, if so, the mask is updated and so is the display word
     // guesses is not decremented if the letter has already been wrongly guessed
     // then it checks to see if the games has ended and whether it is a loss or a win, and updates isLoss and isOver accordingly
-    //also returns true if the letters has already been guessed, false otherwise
+    // also sets lastGuessIsRepeat to true if the letter passed is  repeat guess, sets to false otherwise
+    //  returns true if the game is over, false otherwise
     guess_letter: function(letter) {
 
-      var alreadyGuessed=false;
 
       if(!this.isOver){
-        alreadyGuessed=this.addGuess(letter);
+        this.lastGuessIsRepeat=this.addGuess(letter);
 
         if(this.check_letter(letter)) {
           this.updateMask(letter);
-          this.displayWord=this.getDisplayWord();
+          this.hiddenWord=this.getDisplayWord();
         }
-        else if(!alreadyGuessed){
+        else if(!this.lastGuessIsRepeat){
           --this.guesses;
         }
 
 
         var myStatus=this.getStatus();
         if(myStatus===1){
-          ++this.wins;
+          ++this.winStreak;
           this.isOver=true;
           this.isLoss=false;
         }
@@ -130,7 +145,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
 
       }
       
-      return alreadyGuessed;
+      return this.isOver;
 
     }
 
@@ -145,9 +160,9 @@ document.addEventListener("DOMContentLoaded", function(event) {
     guessesElement: document.getElementById("guesses-remaining"),
 
 
-    //calls hangman.initlize with the number of wins sent to it, and displays the html displays
-    resetGame: function(wins) {
-      hangman.initialize(wins);
+    //calls hangman.nextRound() and displays the html displays
+    resetGame: function() {
+      hangman.nextRound();
       this.displayEverything();
       this.statusElement.innerHTML = "Press any key to play!";
 
@@ -155,6 +170,9 @@ document.addEventListener("DOMContentLoaded", function(event) {
 
     //returns a string with an extra space between each character of the array of chars or input string.
     addSpaces: function(str) {
+      if(str.length===0)
+        return "None";
+
       var tempStr="";
       for(var i=0; i<str.length; ++i){
         tempStr=tempStr+str[i]+"&nbsp;";
@@ -164,8 +182,8 @@ document.addEventListener("DOMContentLoaded", function(event) {
 
     //Displays the wins, hidden word, letters guessed, and guesses remaining to the appropiate html spots.
     displayEverything: function() {
-      this.winsElement.innerHTML = hangman.wins;
-      this.hiddenElement.innerHTML = this.addSpaces(hangman.displayWord);
+      this.winsElement.innerHTML = hangman.winStreak;
+      this.hiddenElement.innerHTML = this.addSpaces(hangman.hiddenWord);
       this.lettersElement.innerHTML = this.addSpaces(hangman.guessArray);
       this.guessesElement.innerHTML = hangman.guesses;
 
@@ -173,26 +191,24 @@ document.addEventListener("DOMContentLoaded", function(event) {
 
     //main hookup to the hangman object.  Calls hangman.guessletter, and does stuff based on its response, and if the game has ended or not
     runGame: function(letter) {
-      //runs the game by one step, returns true if letter is already geussed, false if otherwise
-      var alreadyGuessed=hangman.guess_letter(letter);
+
       this.displayEverything();
 
-      if(hangman.isOver){
+      if(hangman.guess_letter(letter)) {
         if(hangman.isLoss){
           this.statusElement.innerHTML = "You lose! The word was: "+hangman.currentWord +"<br>Press replay to start again <button id=\"replay\" class=\"btn btn-danger\">Replay?</button>";
 
-          var myElement= document.getElementById("replay");
-          myElement.onclick = function () {
-            hangman_runner.resetGame(0);
+          document.getElementById("replay").onclick = function () {
+            hangman_runner.resetGame();
           };
         }
         else {
           this.statusElement.innerHTML = "You win, correctly guessed: "+hangman.currentWord +"<br>Press continue to go on to next word! <button id=\"replay\" class=\"btn btn-primary\">Continue</button>";
-          //Probably not the best way to do this, as it needs thsi specific named instance fof the game to be delard golbally
-          var myElement= document.getElementById("replay");
-          myElement.onclick = function () {
-            hangman_runner.resetGame(hangman.wins);
+          
+          document.getElementById("replay").onclick = function () {
+            hangman_runner.resetGame();
           };
+
           myElement = document.getElementById("my-audio-1");
           myElement.volume = 0.2;
           myElement.play();
@@ -200,14 +216,14 @@ document.addEventListener("DOMContentLoaded", function(event) {
       
       }
       else {
-        if(alreadyGuessed) {
-          this.statusElement.innerHTML = "You already guessed: "+letter;
+        if(hangman.lastGuessIsRepeat) {
+          this.statusElement.innerHTML = "You already guessed the letter: "+letter;
           var myElement = document.getElementById("my-audio-2");
           myElement.volume = 0.2;
           myElement.play();
         }
         else {
-          this.statusElement.innerHTML = "You have guessed: "+letter;
+          this.statusElement.innerHTML = "You have guessed the letter: "+letter;
           var myElement = document.getElementById("my-audio-3");
           myElement.volume = 0.2;
           myElement.play();
