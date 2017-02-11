@@ -16,20 +16,18 @@
 
 <body class="preview">
 
-  <script src="./assets/javascript/game.js"></script>
+ <!-- you know where this is from-->
+<audio id="my-audio-1" src="./assets/sound/realultimatepower.mp3" preload= "auto"></audio>
 
-  <!-- you know where this is from-->
-  <audio id="my-audio-1" src="./assets/sound/realultimatepower.mp3" preload= "auto"></audio>
-
-  <!-- sounds from freesound.org -->
-  <audio id="my-audio-2" src="./assets/sound/26777__junggle__btn402.mp3" preload= "auto"></audio>
-  <audio id="my-audio-3" src="./assets/sound/186669__fordps3__computer-boop.wav" preload= "auto"></audio>
-
-
-
+<!-- sounds from freesound.org -->
+<audio id="my-audio-2" src="./assets/sound/26777__junggle__btn402.mp3" preload= "auto"></audio>
+<audio id="my-audio-3" src="./assets/sound/186669__fordps3__computer-boop.wav" preload= "auto"></audio>
 
 
 <!-- actual page contents starts here -->
+
+
+<!-- my navbar header thing -->
 <div class="navbar navbar-fixed-top">
   <div class="navbar-inner">
     <div class="container">
@@ -44,30 +42,36 @@
   
 <div class="container">
 
-<div class="subhead text-center">
-  <img alt="Under Contstruction" src="./assets/img/construction.gif">
-  <br>
-  <marquee> Featured on alt.reality.webgames!!!</marquee>
-  <br><br>
+  <div class="subhead text-center">
+    <!-- some obnoxious geocities stuff: an understruction image, and a scrolling marquee -->
+    <img alt="Under Contstruction" src="./assets/img/construction.gif">
+    <br>
+    <marquee> Featured on alt.reality.webgames!!!</marquee>
+    <br><br>
 
-  <div class="alert alert-block" id="alert1">
-    <a class="close" id="close1">&times;</a>
-    <img class="pull-left" style="margin-top: -8px" src="./assets/img/drudgesiren.gif" width="80" alt="Siren">
-    <h4 class="alert-heading">Warning</h4>
-    <p>You may lose minutes of your life playing this game! MINUTES! You have been warned. (press X to close)</p><br>
+    <!-- dismissable alert -->
+    <div class="alert alert-block" id="alert1">
+      <a class="close" id="close1">&times;</a>
+      <img class="pull-left" style="margin-top: -8px" src="./assets/img/drudgesiren.gif" width="80" alt="Siren">
+      <h4 class="alert-heading">Warning</h4>
+      <p>You may lose minutes of your life playing this game! MINUTES! You have been warned. (press X to close)</p><br>
+    </div>
   </div>
-</div>
 
 
   <div class="row">
     <div class="span12 text-center main-content">
       <div class="page-header">
 
+        <!-- obnoxious changing-color-font-for-every-charcter rainbow text. -->
         <h4><img src="./assets/img/7upspot.gif" alt="7up-Spot"><span style="color:#ff0000;">L</span><span style="color:#ff2000;">e</span><span style="color:#ff4000;">t</span><span style="color:#ff5f00;">'</span><span style="color:#ff7f00;">s</span><span style="color:#ffaa00;"> </span><span style="color:#ffd400;">P</span><span style="color:#ffff00;">l</span><span style="color:#bfff00;">a</span><span style="color:#80ff00;">y</span><span style="color:#40ff00;"> </span><span style="color:#00ff00;">a</span><span style="color:#00ff55;"> </span><span style="color:#00ffaa;">G</span><span style="color:#00ffff;">a</span><span style="color:#15d4fc;">m</span><span style="color:#2aaafa;">e</span><span style="color:#3f7ff7;"> </span><span style="color:#5454f4;">o</span><span style="color:#704ff6;">f</span><span style="color:#8d4bf9;">.</span><span style="color:#a946fb;">.</span><img src="./assets/img/7upspot.gif" alt="7up-Spot"></h4>
-
+        
+        <!-- more obnoxious changing-color-font-for-every-charcter rainbow text, now with 100% more blinking! -->
         <h1><blink><span style="color:#ff0000;">H</span><span style="color:#ff7f00;">A</span><span style="color:#ffff00;">N</span><span style="color:#80ff00;">G</span><span style="color:#00ff00;">M</span><span style="color:#00ffff;">A</span><span style="color:#5454f4;">N</span><span style="color:#a946fb;">!</span></blink></h1>
 
       </div>
+
+      <!-- main display of the hangman game -->
       <div class="well">
         <h2 id="game-status">""</h2><br>
         <h3>Win Streak:<br></h3>
@@ -83,6 +87,7 @@
     </div>
   </div>
 
+  <!-- My off-brand fake Webring! -->
   <div class="row center">
     <div class="span6 offset3" id="webring">
       <div id="webring2"> 
@@ -90,7 +95,7 @@
           <div class="pull-left center">
             <img src="./assets/img/spinningearth.gif" alt="Spinning Earth">
             <br>
-            <p class="links smaller">©<a>WebRing Inc.</a></p>
+            <p class="links smaller">©<a>Ring of Webs Inc.</a></p>
           </div>
           <div class="pull-right center">
             <p class="links webring-name">Bootcamp Webgames <a class="smaller" href="https://github.com/MagentaReds" target="_blank">by: MagentaReds</a></p>
@@ -109,19 +114,24 @@
   </div>
 
   <div class ="row center">
-      <p class="red smaller">Powered by <a>World of Webrings</a></p>
+      <p class="red smaller">Powered by <a>World of Webcraft Inc.</a></p>
       <p class="green small">(Active (1) Members)</p>
   </div>
 
-<br><br>
-
+  <br><br>
+  
+  <!-- Generic geocities footer -->
   <div class="footer clearfix center">
       <img class="pull-left" src="./assets/img/geocities.jpg" alt="Geocities by Yahoo">
       <img class="pull-right" src="./assets/img/notepad.gif" alt="Built with Notepad">
       <img src="./assets/img/counter2.gif" alt="Hit Counter">
   </div>
 
- </div>
+</div> <!-- end page container -->
 
 </body>
+
+<!--my game .js -->
+<script src="./assets/javascript/game.js"></script>
+
 </html>
