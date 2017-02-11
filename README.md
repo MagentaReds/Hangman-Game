@@ -7,7 +7,7 @@
 I did that thing I said I was going to do.
 
 For the Css/bootstrap, I used the April fools bootstrap theme from here http://code.divshot.com/geo-bootstrap/
-It uses a fairly old version of bootstrap circa 2012, but works well enough.  I added my own little touches like, like a fake webring and and a dismissable alert.
+It uses a fairly old version of bootstrap circa 2012, but works well enough.  I added my own little touches like a fake webring and and a dismissable alert.
 
 From the code comments:
 ```
