@@ -9,6 +9,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
   //Hangman main object. Defines the game, and mostly runs it.
   //call hangman.initialize() to set up the first round of the game, then call hangman.guess_letter(letter) to step through the game
   //hangman.guess_letter() will return true if the game round has ended, false otherwise.
+  //if the game round has ended, calling hangman.guess_letter() again won't do anything besides return true
   //access the memember varibles (.isLoss, .currentWord, .hiddenWord etc.) as needed.
   //Once the game ends, call hangman.nextRound() to start the next round/reset the game upon a loss.
   var hangman = {
